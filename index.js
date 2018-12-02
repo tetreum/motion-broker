@@ -40,7 +40,9 @@ const startRecording = (ip) => {
 	let date = new Date(),
 		fileName = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "__" + date.getHours() + "_" + date.getMinutes() + "_" + date.getSeconds() + ".mpg";
 
-	exec('"' + conf.vlcPath + '" -vvv --network-caching 2000 -I dummy rtsp://' + ip + ':8554/unicast --run-time=' + conf.recordLength + ' --sout=file/ts:' + conf.recordsFolder + '\\' + fileName + ' vlc://quit', () => {
+	exec('"' + conf.vlcPath + '" -vvv --network-caching 2000 -I dummy --dummy-quiet rtsp://' + ip + ':8554/unicast --run-time=' + conf.recordLength + ' --sout=file/ts:' + conf.recordsFolder + '\\' + fileName + ' vlc://quit',{
+		windowsHide: true
+	}, () => {
 		isRecording = false;
 		helper.log("info", "Recording finished");
 
